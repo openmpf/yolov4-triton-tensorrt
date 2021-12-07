@@ -10,7 +10,7 @@
 #include "../utils/profiler.h"
 #include <iostream>
 
-namespace Yolo
+namespace Yolo608
 {
     static constexpr int CHECK_COUNT = 3;
     static constexpr float IGNORE_THRESH = 0.1f;
@@ -55,13 +55,13 @@ namespace Yolo
 
 namespace nvinfer1
 {
-    class YoloLayerPlugin: public IPluginV2IOExt
+    class Yolo608LayerPlugin: public IPluginV2IOExt
     {
         public:
-            explicit YoloLayerPlugin();
-            YoloLayerPlugin(const void* data, size_t length);
+            explicit Yolo608LayerPlugin();
+            Yolo608LayerPlugin(const void* data, size_t length);
 
-            ~YoloLayerPlugin();
+            ~Yolo608LayerPlugin();
 
             int getNbOutputs() const override
             {
@@ -115,18 +115,18 @@ namespace nvinfer1
             void forwardGpu(const float *const * inputs,float * output, cudaStream_t stream,int batchSize = 1);
             int mClassCount;
             int mKernelCount;
-            std::vector<Yolo::YoloKernel> mYoloKernel;
+            std::vector<Yolo608::YoloKernel> mYoloKernel;
             int mThreadCount = 256;
             void** mAnchor;
             const char* mPluginNamespace;
     };
 
-    class YoloPluginCreator : public IPluginCreator
+    class Yolo608PluginCreator : public IPluginCreator
     {
         public:
-            YoloPluginCreator();
+            Yolo608PluginCreator();
 
-            ~YoloPluginCreator() override = default;
+            ~Yolo608PluginCreator() override = default;
 
             const char* getPluginName() const override;
 
@@ -154,7 +154,7 @@ namespace nvinfer1
             static std::vector<PluginField> mPluginAttributes;
     };
 
-    REGISTER_TENSORRT_PLUGIN(YoloPluginCreator);
+    REGISTER_TENSORRT_PLUGIN(Yolo608PluginCreator);
 };
 
-#endif 
+#endif

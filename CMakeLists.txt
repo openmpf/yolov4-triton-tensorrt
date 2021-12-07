@@ -17,10 +17,10 @@ endif()
 
 
 # LAYER PLUGIN LIB
-cuda_add_library(layerplugin SHARED ${PROJECT_SOURCE_DIR}/layers/yololayer.cu)
+cuda_add_library(yolo608layerplugin SHARED ${PROJECT_SOURCE_DIR}/layers/yolo608layer.cu)
 # needs to be linked here because triton will not have those libs preloaded!
-target_link_libraries(layerplugin nvinfer cudart)
+target_link_libraries(yolo608layerplugin nvinfer cudart)
 
 # EXECUTABLE
 add_executable(main ${PROJECT_SOURCE_DIR}/main.cpp)
-target_link_libraries(main nvinfer cudart layerplugin)
+target_link_libraries(main nvinfer cudart yolo608layerplugin)
