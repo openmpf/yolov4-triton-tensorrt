@@ -9,7 +9,7 @@ static Logger gLogger;
 #include <iostream>
 
 #define DEVICE 0
-#define BATCH_SIZE 1
+#define BATCH_SIZE 16
 
 using namespace nvinfer1;
 

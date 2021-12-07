@@ -10,14 +10,14 @@
 #include "../utils/profiler.h"
 #include <iostream>
 
-namespace Yolo
+namespace Yolo416
 {
     static constexpr int CHECK_COUNT = 3;
     static constexpr float IGNORE_THRESH = 0.1f;
     static constexpr int MAX_OUTPUT_BBOX_COUNT = 1000;
     static constexpr int CLASS_NUM = 80;
-    static constexpr int INPUT_H = 608;
-    static constexpr int INPUT_W = 608;
+    static constexpr int INPUT_H = 416;
+    static constexpr int INPUT_W = 416;
 
     struct YoloKernel
     {
@@ -55,13 +55,13 @@ namespace Yolo
 
 namespace nvinfer1
 {
-    class YoloLayerPlugin: public IPluginV2IOExt
+    class Yolo416LayerPlugin: public IPluginV2IOExt
     {
         public:
-            explicit YoloLayerPlugin();
-            YoloLayerPlugin(const void* data, size_t length);
+            explicit Yolo416LayerPlugin();
+            Yolo416LayerPlugin(const void* data, size_t length);
 
-            ~YoloLayerPlugin();
+            ~Yolo416LayerPlugin();
 
             int getNbOutputs() const override
             {
@@ -115,18 +115,18 @@ namespace nvinfer1
             void forwardGpu(const float *const * inputs,float * output, cudaStream_t stream,int batchSize = 1);
             int mClassCount;
             int mKernelCount;
-            std::vector<Yolo::YoloKernel> mYoloKernel;
+            std::vector<Yolo416::YoloKernel> mYoloKernel;
             int mThreadCount = 256;
             void** mAnchor;
             const char* mPluginNamespace;
     };
 
-    class YoloPluginCreator : public IPluginCreator
+    class Yolo416PluginCreator : public IPluginCreator
     {
         public:
-            YoloPluginCreator();
+            Yolo416PluginCreator();
 
-            ~YoloPluginCreator() override = default;
+            ~Yolo416PluginCreator() override = default;
 
             const char* getPluginName() const override;
 
@@ -154,7 +154,7 @@ namespace nvinfer1
             static std::vector<PluginField> mPluginAttributes;
     };
 
-    REGISTER_TENSORRT_PLUGIN(YoloPluginCreator);
+    REGISTER_TENSORRT_PLUGIN(Yolo416PluginCreator);
 };
 
-#endif 
+#endif
