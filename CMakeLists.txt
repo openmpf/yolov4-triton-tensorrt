@@ -1,3 +1,7 @@
+# The majority of this code is copyright Isarsoft and/or Wang Xinyu. It has been
+# modified by MITRE to use unique names to allow multiple plugins for different
+# dimensions to be loaded into Triton at the same time.
+
 cmake_minimum_required(VERSION 3.5)
 
 PROJECT(yolov4-triton-tensorrt VERSION 1.1.0 LANGUAGES CXX)
